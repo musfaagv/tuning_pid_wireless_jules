@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemetry Dashboard</title>
+    <!-- uPlot CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/uplot/dist/uPlot.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ESP32 Telemetry Dashboard</h1>
+        <div id="connection-status" class="status disconnected">Disconnected</div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar for Settings & Controls -->
+        <aside class="sidebar">
+            <div class="panel">
+                <h2>Controls</h2>
+                <div class="control-group">
+                    <button id="btn-pause" class="btn primary">Pause Render</button>
+                    <button id="btn-record" class="btn success">Start Recording</button>
+                </div>
+
+                <div class="control-group">
+                    <label>Command to ESP32:</label>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="cmd-input" placeholder="Enter command...">
+                        <button id="btn-send-cmd" class="btn">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Settings</h2>
+
+                <div class="setting-group">
+                    <label for="x-axis-mode">X-Axis Mode:</label>
+                    <select id="x-axis-mode">
+                        <option value="time">Time (ms)</option>
+                        <option value="frame">Frame Index</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label for="window-size">Visible Points (Window Size):</label>
+                    <input type="number" id="window-size" value="100" min="10" max="1000">
+                </div>
+
+                <div class="setting-group">
+                    <label>Y-Axis Scaling:</label>
+                    <div>
+                        <input type="radio" id="scale-auto" name="y-scale" value="auto" checked>
+                        <label for="scale-auto">Auto-scale</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="scale-manual" name="y-scale" value="manual">
+                        <label for="scale-manual">Manual</label>
+                    </div>
+                    <div id="manual-scale-inputs" style="display: none; margin-top: 5px;">
+                        <input type="number" id="y-min" placeholder="Min" style="width: 45%;">
+                        <input type="number" id="y-max" placeholder="Max" style="width: 45%;">
+                        <button id="btn-apply-scale" class="btn small" style="margin-top: 5px; width: 100%;">Apply</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" id="variables-panel" style="display: none;">
+                <h2>Variables Visibility</h2>
+                <div id="visibility-checkboxes" class="checkbox-group">
+                    <!-- Checkboxes will be generated here dynamically -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content for Graph & Table -->
+        <main class="content">
+            <div class="graph-container">
+                <div class="graph-header">
+                    <h2>Live Plot</h2>
+                    <div class="graph-controls">
+                        <button id="btn-zoom-out" class="btn small" title="Zoom Out">-</button>
+                        <button id="btn-zoom-in" class="btn small" title="Zoom In">+</button>
+                        <button id="btn-reset-zoom" class="btn small" title="Reset Zoom">Reset</button>
+                    </div>
+                </div>
+                <div id="uplot-chart"></div>
+            </div>
+
+            <div class="table-container">
+                <h2>Recent Data (Last 20 frames)</h2>
+                <div class="table-wrapper">
+                    <table id="data-table">
+                        <thead>
+                            <tr id="table-header-row">
+                                <!-- Headers will be generated here dynamically -->
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Data rows will be generated here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- uPlot JS -->
+    <script src="https://unpkg.com/uplot/dist/uPlot.iife.min.js"></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
