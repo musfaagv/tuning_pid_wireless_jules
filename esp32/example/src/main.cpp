@@ -4,12 +4,12 @@
 
 // Konfigurasi WiFi
 // Ganti dengan SSID dan Password WiFi Anda
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "XxX";
+const char* password = "12345678";
 
 // Konfigurasi WebSocket Server (Laptop)
 // Ganti dengan IP Address Laptop Anda di jaringan WiFi
-const char* ws_host = "192.168.1.100";
+const char* ws_host = "10.47.100.165";
 const uint16_t ws_port = 8765;
 const char* ws_url = "/esp";
 
