@@ -153,10 +153,9 @@ async def batch_sender():
         # Tidur sebentar agar CPU tidak 100%
         await asyncio.sleep(0.01)
 
-async def router(websocket, path):
+async def router(websocket):
     """Mengarahkan koneksi berdasarkan path"""
-    # Pada websockets >= 14.0, 'path' bisa didapat dari websocket.request.path
-    req_path = websocket.request.path if hasattr(websocket, 'request') else path
+    req_path = websocket.request.path
 
     if req_path == '/esp':
         await handle_esp(websocket)
